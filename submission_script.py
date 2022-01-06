@@ -17,9 +17,6 @@
 import numpy as np
 from zipfile import ZipFile
 from sklearn import linear_model
-from datetime import datetime
-
-debut = datetime.now()
 
 X = np.loadtxt("data/protein_train.data")
 y = np.loadtxt("data/protein_train.solution")
@@ -43,7 +40,7 @@ y_valid = log_reg.predict(X_valid)
 np.savetxt("protein_test.predict", y_test, fmt="%d")
 np.savetxt("protein_valid.predict", y_valid, fmt="%d")
 
-zip_obj = ZipFile('submission.zip', 'w')
+zip_obj = ZipFile("submission.zip", "w")
 zip_obj.write("protein_test.predict")
 zip_obj.write("protein_valid.predict")
 
@@ -68,8 +65,3 @@ zip_obj.close()
 #     output from scoring step*.
 #   - Some logs are available to download.
 #   - Leader board is updated in the `Results` tab.
-
-fin = datetime.now()
-
-print(f"Début {debut} and fin {fin}")
-print(f"Time spent : {fin - debut}")
