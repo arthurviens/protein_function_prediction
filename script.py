@@ -1,5 +1,6 @@
 import numpy as np
 from sklearn import linear_model
+import random
 
 
 def load_data(path="data/"):
@@ -24,18 +25,37 @@ def save_model(y_test, y_valid, path=""):
     zip_obj.close()
 
 
+def random_indices(size, percentage):
+    list_ = list(range(size))
+    random.shuffle(list_)
+    return list_[: int(percentage * size)]
+
+
+def shrink(X, y, percentage=0.1):
+    indices = random_indices(X.shape[0], percentage)
+    return X[indices, :], y[indices]
+
+
+def save_data(*args, path="data/"):
+    for i, arg in enumerate(args):
+        np.save(path + f"shrink_{i}", arg)
+        print(repr(arg), " saved")
+
+
 if __name__ == "__main__":
     X, y, X_test, X_valid = load_data()
 
     # Fit and predict
 
-    log_reg = linear_model.LogisticRegression()
-    log_reg.fit(X, y)
-
-    # Predict on the test and validation data.
-    y_test = log_reg.predict(X_test)
-    y_valid = log_reg.predict(X_valid)
-
-    # Save results
-
-    save_model(y_test, y_valid)
+    # X_new, y_new = shrink(X, y)
+    # save(X_new, y_new)
+    # log_reg = linear_model.LogisticRegression()
+    # log_reg.fit(X, y)
+    #
+    # # Predict on the test and validation data.
+    # y_test = log_reg.predict(X_test)
+    # y_valid = log_reg.predict(X_valid)
+    #
+    # # Save results
+    #
+    # save_model(y_test, y_valid)
