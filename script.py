@@ -36,9 +36,9 @@ def shrink(X, y, percentage=0.1):
     return X[indices, :], y[indices]
 
 
-def save_data(*args, path="data/"):
+def save_data(name, *args, path="data/"):
     for i, arg in enumerate(args):
-        np.save(path + f"shrink_{i}", arg)
+        np.save(path + name + f"_{i}", arg)
         print(repr(arg), " saved")
 
 
