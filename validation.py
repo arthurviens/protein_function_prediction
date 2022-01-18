@@ -12,7 +12,7 @@ from models import *
 # For safety
 HKEYS = tuple(HYPERPARAMETERS.keys())
 MKEYS = tuple(MODELS.keys())
-for key in keys:
+for key in KEYS:
     assert key in HKEYS, "{} not found in HYPERPARAMETERS (keys={})".format(key, HKEYS)
     assert key in MKEYS, "{} not found in MODELS (keys={})".format(key, MKEYS)
 
