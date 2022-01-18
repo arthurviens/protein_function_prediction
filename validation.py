@@ -9,9 +9,17 @@ from in_out import *
 from preprocessing import *
 from models import *
 
+# For safety
+HKEYS = tuple(HYPERPARAMETERS.keys())
+MKEYS = tuple(MODELS.keys())
+for key in keys:
+    assert key in HKEYS, "{} not found in HYPERPARAMETERS (keys={})".format(key, HKEYS)
+    assert key in MKEYS, "{} not found in MODELS (keys={})".format(key, MKEYS)
+
+# ===========
+
 # Load data
 X_train, y_train = load_shrunk_data()
-# X_train, y_train, X_test, y_test = get_train_test(X, y)
 
 best_clf = {key: {} for key in SCALERS}
 
@@ -23,23 +31,24 @@ for scaler_type in SCALERS:
     scaler = SCALERS[scaler_type]
     scaler.fit(X_train)
     X_train_scaled = scaler.transform(X_train)
-    # X_test_scaled = scaler.transform(X_test)
 
     for key in KEYS:
-        print("Current model : '{}'".format())
-        print("Hyperparameters : {}".format())
+        print("Current model : '{}'".format(key))
+        print("Hyperparameters : {}".format(HYPERPARAMETERS[key]))
         clf = GridSearchCV(
             MODELS[key], HYPERPARAMETERS[key], cv=5, scoring="balanced_accuracy", n_jobs=-1
         )
         try:
             # Search best estimators
             clf.fit(X_train_scaled, y_train)
+            best_clf[scaler_type][key] = clf
         except Exception:
             print_exc()
-        best_clf[scaler_type][key] = clf
 
 print("\nFinished.\n")
 
+
+# Print results
 print("Results :")
 for scaler_type in SCALERS:
     print("With the scaler : '{}'".format(scaler_type))
@@ -51,16 +60,18 @@ for scaler_type in SCALERS:
         except:
             print("Classifier {} with scaler '{}' didn't work.".format(key, scaler_type))
 
+
+# Rank estimators
 print("\nBest classifiers\n")
 try:
     list_clf = [
-        (scaler_type, key, best_clf[scaler_type][key])
+        (scaler_type, key, best_clf[scaler_type][key].best_score_)
         for scaler_type in SCALERS
         for key in KEYS
     ]
-    sorted_list_clf = sorted(list_clf, key=lambda x: x[2].best_score_)
-    for i, (scaler_type, key, _) in sorted_list_clf:
-        print("{} {} {}".format(i, scaler_type, key))
+    sorted_list_clf = sorted(list_clf, key=lambda x: x[2], reverse=True)
+    for i, (scaler_type, key, best_score) in enumerate(sorted_list_clf):
+        print("Rank", i, ":", scaler_type, key, best_score)
 except Exception:
     print_exc()
 
