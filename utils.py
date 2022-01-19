@@ -148,12 +148,20 @@ def visualize_tsne(X, y):
     plt.show()
 
 
-def remove_hard_corrs(X):
-    corr = pd.DataFrame(X).corr()
+def remove_hard_corrs(X, X_test=None, X_valid=None, verbose=1):
+    shape = X.shape
+    corr = pd.DataFrame(X, copy=False).corr()
     upper_corr = pd.DataFrame(np.triu(corr, 1))
     hard_corrs = np.sum(np.abs(upper_corr) > 0.99, axis=1)
     X = np.delete(X, hard_corrs[hard_corrs != 0].index.values, axis=1)
-    return X
+    if verbose > 0:
+        print(f"Removed {shape[1] - X.shape[1]} useless columns")
+    if (X_test is not None) and (X_valid is not None):
+        X_test = np.delete(X_test, hard_corrs[hard_corrs != 0].index.values, axis=1)
+        X_valid = np.delete(X_valid, hard_corrs[hard_corrs != 0].index.values, axis=1)
+        return X, X_test, X_valid
+    else:
+        return X
 
 
 def reduce_var(X):
