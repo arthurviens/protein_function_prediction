@@ -6,7 +6,7 @@ import warnings
 import torch.nn as nn
 from torch.utils.data import Dataset, DataLoader, random_split
 from torch.utils.data import WeightedRandomSampler
-from sklearn.preprocessing import StandardScaler
+from sklearn.preprocessing import StandardScaler, PowerTransformer
 from sklearn.decomposition import PCA
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import balanced_accuracy_score
@@ -43,26 +43,25 @@ class CustomDataset(Dataset):
         
     
 class Data_Loaders():
-    def __init__(self, batch_size, scaling=True, weighting=True):
+    def __init__(self, batch_size, scaler=None, weighting=True):
         self.weighting=weighting
-        self.scaling=scaling
+        if scaler is not None:
+            self.scaling=True
         
-        X = np.loadtxt("data/protein_train.data")
-        y = np.loadtxt("data/protein_train.solution")
-        
-        X_test = np.loadtxt("data/protein_test.data")
-        X_valid = np.loadtxt("data/protein_valid.data")
+        X, y, X_test, X_valid = load_data("data", test=True, valid=True)
         print("Data Loaded")
 
         X, X_test, X_valid = remove_hard_corrs(X, X_test, X_valid)
         
         
-        if scaling:
-            self.scaler=StandardScaler()
-            X_train = self.scaler.fit_transform(X)
+        if self.scaling:
+            self.scaler = scaler
+            X_forscaled, _ = remove_outliers(X, y, zscore_th=10, outlier_dim_number=30)
+            self.scaler.fit(X_forscaled)
+            X_train = self.scaler.transform(X)
             X_test = self.scaler.transform(X_test)
             X_valid = self.scaler.transform(X_valid)
-            print("Data standardized")
+            print("Data scaled")
         
         self.train_set = CustomDataset(X_train, y)
         self.test_set = CustomDataset(X_test)
@@ -87,8 +86,8 @@ class Data_Loaders():
         else:
             self.train_loader = DataLoader(self.train_set, batch_size=batch_size)
             
-        self.test_loader = DataLoader(self.test_set, batch_size=64)
-        self.val_loader = DataLoader(self.val_set, batch_size=64)
+        self.test_loader = DataLoader(self.test_set, batch_size=128)
+        self.val_loader = DataLoader(self.val_set, batch_size=128)
 
 class BinaryMLP(nn.Module):
     def __init__(self, **kwargs):
@@ -113,11 +112,11 @@ class BinaryMLP(nn.Module):
 
     def forward(self, features):
         x = self.hidden_layer_1(features)
-        x = self.batchnorm1(x)
+        #x = self.batchnorm1(x)
         x = self.dropout1(x)
         x = torch.relu(x)
         x = self.hidden_layer_2(x)
-        x = self.batchnorm2(x)
+        #x = self.batchnorm2(x)
         x = self.dropout2(x)
         x = torch.relu(x)
         out = torch.sigmoid(self.out_layer(x))
@@ -136,7 +135,7 @@ def binary_acc(y_pred, y_test):
 if __name__ == "__main__":
     base_size = 941
 
-    dataset = Data_Loaders(64, scaling=True, weighting=True)
+    dataset = Data_Loaders(256, scaler=StandardScaler(), weighting=True)
 
 
     # create a model from `AE` autoencoder class
@@ -150,7 +149,7 @@ if __name__ == "__main__":
     # mean-squared error loss
     criterion = nn.BCELoss()
 
-    epochs=14
+    epochs=15
     
     warnings.filterwarnings("ignore", category=UserWarning)
 

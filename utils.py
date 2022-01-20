@@ -3,10 +3,41 @@ import numpy as np
 import scipy.stats
 from scipy.stats import chi2_contingency
 import matplotlib.pyplot as plt
+import os
 
 from sklearn import metrics, preprocessing
 from sklearn.decomposition import PCA
 from sklearn.manifold import TSNE
+
+
+def load_data(directory, test=False, valid=False):
+    if os.path.isfile(os.path.join(directory, "protein_train_data.npy")):
+        X = np.load(os.path.join(directory, "protein_train_data.npy"))
+    else:
+        X = np.loadtxt(os.path.join(directory, "protein_train.data"))
+        np.save(os.path.join(directory, "protein_train_data.npy"), X)
+        
+    if os.path.isfile(os.path.join(directory, "protein_train_sol.npy")):
+        y = np.load(os.path.join(directory, "protein_train_sol.npy"))
+    else:
+        y = np.loadtxt(os.path.join(directory, "protein_train.solution"))
+        np.save(os.path.join(directory, "protein_train_sol.npy"), y)
+        
+    if (test and valid):
+        if os.path.isfile(os.path.join(directory, "protein_test.npy")):
+            X_test = np.load(os.path.join(directory, "protein_test.npy"))
+        else:
+            X_test = np.loadtxt(os.path.join(directory, "protein_test.data"))
+            np.save(os.path.join(directory, "protein_test.npy"), X_test)
+            
+        if os.path.isfile(os.path.join(directory, "protein_valid.npy")):
+            X_valid = np.load(os.path.join(directory, "protein_valid.npy"))
+        else:
+            X_valid = np.loadtxt(os.path.join(directory, "protein_valid.data"))
+            np.save(os.path.join(directory, "protein_valid.npy"), X_valid)
+        return X, y, X_test, X_valid
+    else:
+        return X, y
 
 
 def compute_weights(y):
@@ -150,19 +181,44 @@ def visualize_tsne(X, y):
 
 def remove_hard_corrs(X, X_test=None, X_valid=None, verbose=1):
     shape = X.shape
-    corr = pd.DataFrame(X, copy=False).corr()
-    upper_corr = pd.DataFrame(np.triu(corr, 1))
-    hard_corrs = np.sum(np.abs(upper_corr) > 0.99, axis=1)
-    X = np.delete(X, hard_corrs[hard_corrs != 0].index.values, axis=1)
-    if verbose > 0:
-        print(f"Removed {shape[1] - X.shape[1]} useless columns")
-    if (X_test is not None) and (X_valid is not None):
-        X_test = np.delete(X_test, hard_corrs[hard_corrs != 0].index.values, axis=1)
-        X_valid = np.delete(X_valid, hard_corrs[hard_corrs != 0].index.values, axis=1)
-        return X, X_test, X_valid
+    calculate = False
+    if os.path.isfile("data/hardcorr_X.npy"):
+        if (X_test is not None) and (X_valid is not None):
+            if os.path.isfile("data/hardcorr_X_test.npy"):
+                X_test = np.load("data/hardcorr_X_test.npy")
+            else:
+                calculate=True
+            if os.path.isfile("data/hardcorr_X_valid.npy"):
+                X_valid = np.load("data/hardcorr_X_valid.npy")
+            else:
+                calculate=True
+        if not calculate:
+            X = np.load("data/hardcorr_X.npy")
     else:
-        return X
-
+        calculate=True
+        
+    if calculate:
+        corr = pd.DataFrame(X, copy=False).corr()
+        upper_corr = pd.DataFrame(np.triu(corr, 1))
+        hard_corrs = np.sum(np.abs(upper_corr) > 0.99, axis=1)
+        X = np.delete(X, hard_corrs[hard_corrs != 0].index.values, axis=1)
+        np.save("data/hardcorr_X.npy", X)
+        if verbose > 0:
+            print(f"Removed {shape[1] - X.shape[1]} useless columns")
+        if (X_test is not None) and (X_valid is not None):
+            X_test = np.delete(X_test, hard_corrs[hard_corrs != 0].index.values, axis=1)
+            X_valid = np.delete(X_valid, hard_corrs[hard_corrs != 0].index.values, axis=1)
+            np.save("data/hardcorr_X_test.npy", X_test)
+            np.save("data/hardcorr_X_valid.npy", X_valid)
+            return X, X_test, X_valid
+        else:
+            return X
+    else:
+        print(f"Removed {shape[1] - X.shape[1]} useless columns")
+        if (X_test is not None) and (X_valid is not None):
+            return X, X_test, X_valid
+        else:
+            return X
 
 def reduce_var(X):
     pass
