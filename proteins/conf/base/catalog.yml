@@ -1,0 +1,29 @@
+# all samples for training
+raw_X_train:
+  type: pickle.PickleDataSet
+  filepath: data/01_raw/proteins_X_train.pkl
+
+# all predictions for training
+raw_y_train:
+  type: pickle.PickleDataSet
+  filepath: data/01_raw/proteins_y_train.pkl
+
+# Input for competition
+raw_X_test:
+  type: pickle.PickleDataSet
+  filepath: data/01_raw/proteins_X_test.pkl
+
+# Input for competition
+raw_X_valid:
+  type: pickle.PickleDataSet
+  filepath: data/01_raw/proteins_X_valid.pkl
+
+# 10 % of samples for training
+shrunk_X_train:
+  type: pickle.PickleDataSet
+  filepath: data/01_raw/shrunk_X_train.pkl
+
+# Predictions of the shrunk dataset
+shrunk_y_train:
+  type: pickle.PickleDataSet
+  filepath: data/01_raw/shrunk_y_train.pkl
