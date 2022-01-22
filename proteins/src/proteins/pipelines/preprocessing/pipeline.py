@@ -23,6 +23,7 @@ def create_pipeline(**kwargs):
                     "X_valid_competition",
                 ],
                 name="preprocessing",
+                tags="preprocessing",
             )
         ]
     )

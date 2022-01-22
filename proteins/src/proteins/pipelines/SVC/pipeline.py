@@ -16,12 +16,14 @@ def create_pipeline(**kwargs):
                 ["X_train_scaled", "y_train", "parameters"],
                 "SVC",
                 name="train_SVC_model",
+                tags="train_SVC_model",
             ),
             node(
                 predict,
                 ["SVC", "X_test_scaled"],
                 "SVC_predictions",
                 name="predictions_SVC_model",
+                tags="train_SVC_model",
             ),
             node(
                 report_scores,

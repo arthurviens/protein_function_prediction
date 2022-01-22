@@ -27,3 +27,49 @@ shrunk_X_train:
 shrunk_y_train:
   type: pickle.PickleDataSet
   filepath: data/01_raw/shrunk_y_train.pkl
+
+# Samples for training
+X_train:
+  type: pickle.PickleDataSet
+  filepath: data/02_intermediate/X_train.pkl
+
+# Samples for testing
+X_test:
+  type: pickle.PickleDataSet
+  filepath: data/02_intermediate/X_test.pkl
+
+# Predictions for training
+y_train:
+  type: pickle.PickleDataSet
+  filepath: data/02_intermediate/y_train.pkl
+
+# Predictions for testing
+y_test:
+  type: pickle.PickleDataSet
+  filepath: data/02_intermediate/y_test.pkl
+
+# Scaled data (training samples)
+X_train_scaled:
+  type: pickle.PickleDataSet
+  filepath: data/05_model_input/X_train_scaled.pkl
+
+# Scaled data (testing samples)
+X_test_scaled:
+  type: pickle.PickleDataSet
+  filepath: data/05_model_input/X_test_scaled.pkl
+
+# Scaled data (for competition purpose)
+X_test_competition:
+  type: pickle.PickleDataSet
+  filepath: data/05_model_input/X_test_competition.pkl
+
+# Scaled data (for competition purpose)
+X_valid_competition:
+  type: pickle.PickleDataSet
+  filepath: data/05_model_input/X_valid_competition.pkl
+
+
+# SVC predictions
+SVC_predictions:
+  type: pickle.PickleDataSet
+  filepath: data/07_model_output/SVC_predictions.pkl

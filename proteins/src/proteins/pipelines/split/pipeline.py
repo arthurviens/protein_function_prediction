@@ -11,6 +11,7 @@ def create_pipeline(**kwargs):
                 ["raw_X_train", "raw_y_train", "params:test_data_ratio"],
                 list(("X_train", "y_train", "X_test", "y_test")),
                 name="split",
+                tags="split_data",
             )
         ]
     )

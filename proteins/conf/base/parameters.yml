@@ -1,6 +1,0 @@
-test_data_ratio: 0.2
-scaler_type: "minmax"
-n_components_pca: 0.95
-C: 10
-max_iter: 10000
-kernel: "rbf"
