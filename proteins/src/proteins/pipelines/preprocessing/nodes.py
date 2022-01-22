@@ -14,7 +14,7 @@ def scale_data(
     n_components: float,  # between 0 and 1
 ):
     """
-    Scale data and apply a PCA on it with
+    Scale data and apply a PCA on it
     """
     if scaler == "minmax":
         scaler = MinMaxScaler()
