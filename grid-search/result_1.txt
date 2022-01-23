@@ -1,0 +1,130 @@
+Start computation
+Tue Jan 18 19:30:10 CET 2022
+Start :
+Current scaler : 'standard'
+Current model : 'svc'
+Hyperparameters : {'C': [0.001, 0.01, 0.1, 1, 10, 20], 'kernel': ['linear', 'poly', 'rbf', 'sigmoid'], 'gamma': ['scale']}
+Current model : 'logit_l2'
+Hyperparameters : {'penalty': ['l2'], 'C': [0.001, 0.01, 0.1, 1, 10, 20], 'solver': ['lbfgs']}
+Current model : 'logit_l1'
+Hyperparameters : {'penalty': ['l1'], 'C': [0.001, 0.01, 0.1, 1, 10, 20], 'solver': ['saga']}
+Current model : 'logit_elasticnet'
+Hyperparameters : {'penalty': ['elasticnet'], 'C': [0.001, 0.01, 0.1, 1, 10, 20], 'l1_ratio': [0.3, 0.5, 0.8], 'solver': ['saga']}
+Current model : 'randomforest'
+Hyperparameters : {'n_estimators': [5, 10, 20, 50, 100], 'criterion': ['gini', 'entropy'], 'max_features': ['auto', 'sqrt', 'log2']}
+Current model : 'decisiontree'
+Hyperparameters : {'criterion': ['gini', 'entropy'], 'max_features': ['auto', 'sqrt', 'log2']}
+Current scaler : 'minmax'
+Current model : 'svc'
+Hyperparameters : {'C': [0.001, 0.01, 0.1, 1, 10, 20], 'kernel': ['linear', 'poly', 'rbf', 'sigmoid'], 'gamma': ['scale']}
+Current model : 'logit_l2'
+Hyperparameters : {'penalty': ['l2'], 'C': [0.001, 0.01, 0.1, 1, 10, 20], 'solver': ['lbfgs']}
+Current model : 'logit_l1'
+Hyperparameters : {'penalty': ['l1'], 'C': [0.001, 0.01, 0.1, 1, 10, 20], 'solver': ['saga']}
+Current model : 'logit_elasticnet'
+Hyperparameters : {'penalty': ['elasticnet'], 'C': [0.001, 0.01, 0.1, 1, 10, 20], 'l1_ratio': [0.3, 0.5, 0.8], 'solver': ['saga']}
+Current model : 'randomforest'
+Hyperparameters : {'n_estimators': [5, 10, 20, 50, 100], 'criterion': ['gini', 'entropy'], 'max_features': ['auto', 'sqrt', 'log2']}
+Current model : 'decisiontree'
+Hyperparameters : {'criterion': ['gini', 'entropy'], 'max_features': ['auto', 'sqrt', 'log2']}
+
+Finished.
+
+Results :
+With the scaler : 'standard'
+Best estimators : SVC(C=20, break_ties=False, cache_size=200, class_weight=None, coef0=0.0,
+    decision_function_shape='ovr', degree=3, gamma='scale', kernel='rbf',
+    max_iter=10000, probability=False, random_state=42, shrinking=True,
+    tol=0.001, verbose=False)
+Best score :
+Best estimators : LogisticRegression(C=0.1, class_weight=None, dual=False, fit_intercept=True,
+                   intercept_scaling=1, l1_ratio=None, max_iter=5000,
+                   multi_class='auto', n_jobs=None, penalty='l2',
+                   random_state=None, solver='lbfgs', tol=0.0001, verbose=0,
+                   warm_start=False)
+Best score :
+Best estimators : LogisticRegression(C=1, class_weight=None, dual=False, fit_intercept=True,
+                   intercept_scaling=1, l1_ratio=None, max_iter=5000,
+                   multi_class='auto', n_jobs=None, penalty='l1',
+                   random_state=None, solver='saga', tol=0.0001, verbose=0,
+                   warm_start=False)
+Best score :
+Best estimators : LogisticRegression(C=0.1, class_weight=None, dual=False, fit_intercept=True,
+                   intercept_scaling=1, l1_ratio=0.3, max_iter=5000,
+                   multi_class='auto', n_jobs=None, penalty='elasticnet',
+                   random_state=None, solver='saga', tol=0.0001, verbose=0,
+                   warm_start=False)
+Best score :
+Best estimators : RandomForestClassifier(bootstrap=True, ccp_alpha=0.0, class_weight=None,
+                       criterion='entropy', max_depth=None, max_features='auto',
+                       max_leaf_nodes=None, max_samples=None,
+                       min_impurity_decrease=0.0, min_impurity_split=None,
+                       min_samples_leaf=1, min_samples_split=2,
+                       min_weight_fraction_leaf=0.0, n_estimators=50,
+                       n_jobs=None, oob_score=False, random_state=42, verbose=0,
+                       warm_start=False)
+Best score :
+Best estimators : DecisionTreeClassifier(ccp_alpha=0.0, class_weight=None, criterion='gini',
+                       max_depth=None, max_features='auto', max_leaf_nodes=None,
+                       min_impurity_decrease=0.0, min_impurity_split=None,
+                       min_samples_leaf=1, min_samples_split=2,
+                       min_weight_fraction_leaf=0.0, presort='deprecated',
+                       random_state=42, splitter='best')
+Best score :
+With the scaler : 'minmax'
+Best estimators : SVC(C=10, break_ties=False, cache_size=200, class_weight=None, coef0=0.0,
+    decision_function_shape='ovr', degree=3, gamma='scale', kernel='rbf',
+    max_iter=10000, probability=False, random_state=42, shrinking=True,
+    tol=0.001, verbose=False)
+Best score :
+Best estimators : LogisticRegression(C=10, class_weight=None, dual=False, fit_intercept=True,
+                   intercept_scaling=1, l1_ratio=None, max_iter=5000,
+                   multi_class='auto', n_jobs=None, penalty='l2',
+                   random_state=None, solver='lbfgs', tol=0.0001, verbose=0,
+                   warm_start=False)
+Best score :
+Best estimators : LogisticRegression(C=10, class_weight=None, dual=False, fit_intercept=True,
+                   intercept_scaling=1, l1_ratio=None, max_iter=5000,
+                   multi_class='auto', n_jobs=None, penalty='l1',
+                   random_state=None, solver='saga', tol=0.0001, verbose=0,
+                   warm_start=False)
+Best score :
+Best estimators : LogisticRegression(C=10, class_weight=None, dual=False, fit_intercept=True,
+                   intercept_scaling=1, l1_ratio=0.3, max_iter=5000,
+                   multi_class='auto', n_jobs=None, penalty='elasticnet',
+                   random_state=None, solver='saga', tol=0.0001, verbose=0,
+                   warm_start=False)
+Best score :
+Best estimators : RandomForestClassifier(bootstrap=True, ccp_alpha=0.0, class_weight=None,
+                       criterion='entropy', max_depth=None, max_features='auto',
+                       max_leaf_nodes=None, max_samples=None,
+                       min_impurity_decrease=0.0, min_impurity_split=None,
+                       min_samples_leaf=1, min_samples_split=2,
+                       min_weight_fraction_leaf=0.0, n_estimators=5,
+                       n_jobs=None, oob_score=False, random_state=42, verbose=0,
+                       warm_start=False)
+Best score :
+Best estimators : DecisionTreeClassifier(ccp_alpha=0.0, class_weight=None, criterion='entropy',
+                       max_depth=None, max_features='auto', max_leaf_nodes=None,
+                       min_impurity_decrease=0.0, min_impurity_split=None,
+                       min_samples_leaf=1, min_samples_split=2,
+                       min_weight_fraction_leaf=0.0, presort='deprecated',
+                       random_state=42, splitter='best')
+Best score :
+
+Best classifiers
+
+Rank 0 : minmax svc 0.78879677084609
+Rank 1 : standard svc 0.7826637879012897
+Rank 2 : standard logit_elasticnet 0.7120050060699746
+Rank 3 : standard logit_l1 0.7094792298008678
+Rank 4 : standard logit_l2 0.708354394930174
+Rank 5 : minmax logit_l2 0.7044993163340403
+Rank 6 : minmax logit_elasticnet 0.7044985297843723
+Rank 7 : minmax logit_l1 0.7034944386047067
+Rank 8 : standard randomforest 0.6361483290871159
+Rank 9 : minmax randomforest 0.6339352058037417
+Rank 10 : minmax decisiontree 0.6136195050081324
+Rank 11 : standard decisiontree 0.613077811957716
+End.
+End computation

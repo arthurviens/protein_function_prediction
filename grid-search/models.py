@@ -5,39 +5,40 @@ from sklearn.tree import DecisionTreeClassifier
 from sklearn.pipeline import Pipeline
 
 
-KEYS = ("svc", "logit_l2", "logit_l1", "logit_elasticnet", "randomforest", "decisiontree")
+# KEYS = ("svc", "logit_l2", "logit_l1", "logit_elasticnet", "randomforest", "decisiontree")
+KEYS = ("randomforest",)
 
 HYPERPARAMETERS = {
-    "svc": {
-        "C": [0.001, 0.01, 0.1, 1, 10, 20],
-        "kernel": ["linear", "poly", "rbf", "sigmoid"],
-        "gamma": ["scale"],  # , "auto"],
-    },
-    "logit_l2": {
-        "penalty": ["l2"],
-        "C": [0.001, 0.01, 0.1, 1, 10, 20],
-        "solver": ["lbfgs"],
-    },
-    "logit_l1": {
-        "penalty": ["l1"],
-        "C": [0.001, 0.01, 0.1, 1, 10, 20],
-        "solver": ["saga"],
-    },
-    "logit_elasticnet": {
-        "penalty": ["elasticnet"],
-        "C": [0.001, 0.01, 0.1, 1, 10, 20],
-        "l1_ratio": [0.3, 0.5, 0.8],
-        "solver": ["saga"],
-    },
+    # "svc": {
+    #     "C": [5, 10, 15, 20],
+    #     "kernel": ["rbf"],
+    #     "gamma": ["scale", "auto"],
+    # },
+    # "logit_l2": {
+    #     "penalty": ["l2"],
+    #     "C": [0.001, 0.01, 0.1, 1, 10, 20],
+    #     "solver": ["lbfgs"],
+    # },
+    # "logit_l1": {
+    #     "penalty": ["l1"],
+    #     "C": [0.001, 0.01, 0.1, 1, 10, 20],
+    #     "solver": ["saga"],
+    # },
+    # "logit_elasticnet": {
+    #     "penalty": ["elasticnet"],
+    #     "C": [0.05, 0.1, 0.15, 0.2],
+    #     "l1_ratio": [0.2, 0.25, 0.3, 0.35, 0.4],
+    #     "solver": ["saga"],
+    # },
     "randomforest": {
-        "n_estimators": [5, 10, 20, 50, 100],
-        "criterion": ["gini", "entropy"],
-        "max_features": ["auto", "sqrt", "log2"],
+        "model__n_estimators": [100, 200, 300, 400, 500],
+        "model__criterion": ["gini", "entropy"],
+        "model__max_features": ["auto", "sqrt", "log2"],
     },
-    "decisiontree": {
-        "criterion": ["gini", "entropy"],
-        "max_features": ["auto", "sqrt", "log2"],
-    },
+    # "decisiontree": {
+    #     "criterion": ["gini", "entropy"],
+    #     "max_features": ["auto", "sqrt", "log2"],
+    # },
 }
 
 MODELS = {

@@ -1,0 +1,58 @@
+Start computation
+Wed Jan 19 17:29:05 CET 2022
+Start
+Current scaler : 'standard'
+Current model : 'svc'
+Hyperparameters : {'C': [5, 10, 15, 20], 'kernel': ['rbf'], 'gamma': ['scale', 'auto']}
+Current model : 'logit_elasticnet'
+Hyperparameters : {'penalty': ['elasticnet'], 'C': [0.05, 0.1, 0.15, 0.2], 'l1_ratio': [0.2, 0.25, 0.3, 0.35, 0.4], 'solver': ['saga']}
+Current scaler : 'minmax'
+Current model : 'svc'
+Hyperparameters : {'C': [5, 10, 15, 20], 'kernel': ['rbf'], 'gamma': ['scale', 'auto']}
+Current model : 'logit_elasticnet'
+Hyperparameters : {'penalty': ['elasticnet'], 'C': [0.05, 0.1, 0.15, 0.2], 'l1_ratio': [0.2, 0.25, 0.3, 0.35, 0.4], 'solver': ['saga']}
+
+Finished
+
+Results
+With the scaler : 'standard'
+Estimator : svc
+Best estimators : SVC(C=20, break_ties=False, cache_size=200, class_weight=None, coef0=0.0,
+    decision_function_shape='ovr', degree=3, gamma='scale', kernel='rbf',
+    max_iter=10000, probability=False, random_state=42, shrinking=True,
+    tol=0.001, verbose=False)
+Best score : 0.9150649870716554
+
+Estimator : logit_elasticnet
+Best estimators : LogisticRegression(C=0.2, class_weight=None, dual=False, fit_intercept=True,
+                   intercept_scaling=1, l1_ratio=0.25, max_iter=5000,
+                   multi_class='auto', n_jobs=None, penalty='elasticnet',
+                   random_state=None, solver='saga', tol=0.0001, verbose=0,
+                   warm_start=False)
+Best score : 0.7418918891845386
+
+With the scaler : 'minmax'
+Estimator : svc
+Best estimators : SVC(C=10, break_ties=False, cache_size=200, class_weight=None, coef0=0.0,
+    decision_function_shape='ovr', degree=3, gamma='scale', kernel='rbf',
+    max_iter=10000, probability=False, random_state=42, shrinking=True,
+    tol=0.001, verbose=False)
+Best score : 0.916193719041115
+
+Estimator : logit_elasticnet
+Best estimators : LogisticRegression(C=0.2, class_weight=None, dual=False, fit_intercept=True,
+                   intercept_scaling=1, l1_ratio=0.2, max_iter=5000,
+                   multi_class='auto', n_jobs=None, penalty='elasticnet',
+                   random_state=None, solver='saga', tol=0.0001, verbose=0,
+                   warm_start=False)
+Best score : 0.7181889716371359
+
+
+Best classifiers
+
+Rank 0 : minmax svc 0.916193719041115
+Rank 1 : standard svc 0.9150649870716554
+Rank 2 : standard logit_elasticnet 0.7418918891845386
+Rank 3 : minmax logit_elasticnet 0.7181889716371359
+End.
+End computation
