@@ -15,13 +15,27 @@ To install them, run:
 pip install -r src/requirements.txt
 ```
 
-## How to run Kedro pipeline
+## How to run Kedro project
 
 You can run the Kedro project with:
 
 ```shell
 kedro run
 ```
+
+## How to run a pipeline
+
+You can run a Kedro pipeline with:
+
+```shell
+kedro run --pipeline=mypipeline
+```
+
+Pipelines:
+- MLP
+- XGBoost
+
+But default, SVC pipeline is chosen.
 
 ## How to visualize Kedro pipelines
 
