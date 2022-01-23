@@ -18,7 +18,8 @@ def register_pipelines() -> Dict[str, Pipeline]:
     XGB_pipeline = XGBoost.create_pipeline()
     MLP_pipeline = MLP.create_pipeline()
 
-    return {"__default__": split_pipeline + preprocessing_pipeline + SVC_pipeline,
+    return {
+        "__default__": split_pipeline + preprocessing_pipeline + SVC_pipeline,
         "XGBoost": split_pipeline + preprocessing_pipeline + XGB_pipeline,
-        "MLP": split_pipeline + preprocessing_pipeline + MLP_pipeline
-        }
+        "MLP": split_pipeline + preprocessing_pipeline + MLP_pipeline,
+    }
