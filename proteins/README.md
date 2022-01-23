@@ -2,121 +2,129 @@
 
 ## Overview
 
-This is your new Kedro project, which was generated using `Kedro 0.17.6`.
+This is a Kedro project, which was generated using `Kedro 0.17.6`.
 
-Take a look at the [Kedro documentation](https://kedro.readthedocs.io) to get started.
+You can ake a look at the [Kedro documentation](https://kedro.readthedocs.io) to get started.
 
-## Rules and guidelines
-
-In order to get the best out of the template:
-
-* Don't remove any lines from the `.gitignore` file we provide
-* Make sure your results can be reproduced by following a [data engineering convention](https://kedro.readthedocs.io/en/stable/12_faq/01_faq.html#what-is-data-engineering-convention)
-* Don't commit data to your repository
-* Don't commit any credentials or your local configuration to your repository. Keep all your credentials and local configuration in `conf/local/`
 
 ## How to install dependencies
 
-Declare any dependencies in `src/requirements.txt` for `pip` installation and `src/environment.yml` for `conda` installation.
-
 To install them, run:
 
-```
-kedro install
+```shell
+pip install -r src/requirements.txt
 ```
 
-## How to run your Kedro pipeline
+## How to run Kedro pipeline
 
-You can run your Kedro project with:
+You can run the Kedro project with:
 
-```
+```shell
 kedro run
 ```
 
-## How to test your Kedro project
+## How to visualize Kedro pipelines
 
-Have a look at the file `src/tests/test_run.py` for instructions on how to write your tests. You can run your tests as follows:
+You need to install `kedro-viz`. It works with `pip` but we encountered some troubles with `conda`.
 
-```
-kedro test
-```
-
-To configure the coverage threshold, go to the `.coveragerc` file.
-
-## Project dependencies
-
-To generate or update the dependency requirements for your project:
-
-```
-kedro build-reqs
+You can visualize Kedro project with:
+```shell
+kedro viz
 ```
 
-This will copy the contents of `src/requirements.txt` into a new file `src/requirements.in` which will be used as the source for `pip-compile`. You can see the output of the resolution by opening `src/requirements.txt`.
-
-After this, if you'd like to update your project requirements, please update `src/requirements.in` and re-run `kedro build-reqs`.
-
-[Further information about project dependencies](https://kedro.readthedocs.io/en/stable/04_kedro_project_setup/01_dependencies.html#project-specific-dependencies)
 
 ## How to work with Kedro and notebooks
 
 > Note: Using `kedro jupyter` or `kedro ipython` to run your notebook provides these variables in scope: `context`, `catalog`, and `startup_error`.
->
-> Jupyter, JupyterLab, and IPython are already included in the project requirements by default, so once you have run `kedro install` you will not need to take any extra steps before you use them.
+
 
 ### Jupyter
 To use Jupyter notebooks in your Kedro project, you need to install Jupyter:
 
-```
+```shell
 pip install jupyter
 ```
 
 After installing Jupyter, you can start a local notebook server:
 
-```
+```shell
 kedro jupyter notebook
 ```
 
 ### JupyterLab
 To use JupyterLab, you need to install it:
 
-```
+```shell
 pip install jupyterlab
 ```
 
 You can also start JupyterLab:
 
-```
+```shell
 kedro jupyter lab
 ```
 
 ### IPython
 And if you want to run an IPython session:
 
-```
+```shell
 kedro ipython
 ```
 
-### How to convert notebook cells to nodes in a Kedro project
-You can move notebook code over into a Kedro project structure using a mixture of [cell tagging](https://jupyter-notebook.readthedocs.io/en/stable/changelog.html#release-5-0-0) and Kedro CLI commands.
+## Notes
 
-By adding the `node` tag to a cell and running the command below, the cell's source code will be copied over to a Python file within `src/<package_name>/nodes/`:
+### Dependencies
 
+If you encounter some troubles, know that you need at least :
+- `kedro` in general
+- `numpy` to manipulate data
+- `sklearn` for the pipeline _SVC_ and for preprocessing
+- `pytorch` for the pipeline _MLP_
+- `xgboost` for the pipeline _XGBoost_
+- `jupyter` if you want to run the notebook
+
+### Data location
+
+In order to run `kedro`, you must generate a folder `data/` and organize it as the following structure :
 ```
-kedro jupyter convert <filepath_to_my_notebook>
+.
+├── 01_raw
+│   ├── proteins_X_test.pkl
+│   ├── proteins_X_train.pkl
+│   ├── proteins_X_valid.pkl
+│   ├── proteins_y_train.pkl
+├── 02_intermediate
+├── 03_primary
+├── 04_feature
+├── 05_model_input
+├── 06_models
+├── 07_model_output
+└── 08_reporting
 ```
-> *Note:* The name of the Python file matches the name of the original notebook.
 
-Alternatively, you may want to transform all your notebooks in one go. Run the following command to convert all notebook files found in the project root directory and under any of its sub-folders:
+Don't worry, we create a script for you !
 
+In the main folder of `proteins`, you can find `setup_data.py`. You only need to put data files :
 ```
-kedro jupyter convert --all
+proteins
+├──  ...
+├──  setup_data.py
+├──  protein_train.data
+├──  protein_train.solution
+├──  protein_test.data
+├──  protein_valid.data
+└──  ...
 ```
+And then run the script.
 
-### How to ignore notebook output cells in `git`
-To automatically strip out all output cell contents before committing to `git`, you can run `kedro activate-nbstripout`. This will add a hook in `.git/config` which will run `nbstripout` before anything is committed to `git`.
+### Notebook jupyter
 
-> *Note:* Your output cells will be retained locally.
-
-## Package your Kedro project
-
-[Further information about building project documentation and packaging your project](https://kedro.readthedocs.io/en/stable/03_tutorial/05_package_a_project.html)
+In case of you are using a virtual environment, `jupyter` might not know it. For instance, if you are using the python version `3.7`, you should run the following command line to tell to `jupyter` to add a new kernel :
+```shell
+ipython kernel install --user --name py37 --display-name "Python 3.7"
+```
+Then you should be fine to run `jupyter` with `kedro` :
+```shell
+kedro jupyter notebook
+```
+And don't forget to select the right kernel when you are in the jupyter environment.
