@@ -10,7 +10,7 @@ def split_data(X: np.array, y: np.array, test_ratio: float) -> List[np.array]:
     each split into features and labels
     """
     full = np.concatenate([X, y.reshape(y.shape[0], 1)], axis=1)
-    train_set, test_set = train_test_split(full, test_size=test_ratio, random_state=42)
+    train_set, test_set = train_test_split(full, test_size=test_ratio, random_state=42, stratify=y)
     X_train = train_set[:, :-1]
     y_train = train_set[:, -1]
     X_test = test_set[:, :-1]

@@ -73,3 +73,13 @@ X_valid_competition:
 SVC_predictions:
   type: pickle.PickleDataSet
   filepath: data/07_model_output/SVC_predictions.pkl
+
+# XGBoost predictions
+XGBoost_predictions:
+  type: pickle.PickleDataSet
+  filepath: data/07_model_output/XGBoost_predictions.pkl
+
+# MLP predictions
+MLP_predictions:
+  type: pickle.PickleDataSet
+  filepath: data/07_model_output/MLP_predictions.pkl

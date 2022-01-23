@@ -1,0 +1,15 @@
+# This is a boilerplate parameters config generated for pipeline 'XGBoost'
+# using Kedro 0.17.6.
+#
+# Documentation for this file format can be found in "Parameters"
+# Link: https://kedro.readthedocs.io/en/0.17.6/04_kedro_project_setup/02_configuration.html#parameters
+
+colsample_bytree: 0.6
+gamma: 2
+max_depth: 3
+min_child_weight: 1
+n_estimators: 500
+subsample: 0.6
+use_label_encoder: False
+objective: "binary:logistic"
+eval_metric: "logloss"
