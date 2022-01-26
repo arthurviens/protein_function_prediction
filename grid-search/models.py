@@ -30,9 +30,9 @@ HYPERPARAMETERS = {
         "solver": ["saga"],
     },
     "randomforest": {
-        "model__n_estimators": [100, 200, 300, 400, 500],
-        "model__criterion": ["gini", "entropy"],
-        "model__max_features": ["auto", "sqrt", "log2"],
+        "n_estimators": [100, 200, 300, 400, 500],
+        "criterion": ["gini", "entropy"],
+        "max_features": ["auto", "sqrt", "log2"],
     },
     "decisiontree": {
         "criterion": ["gini", "entropy"],

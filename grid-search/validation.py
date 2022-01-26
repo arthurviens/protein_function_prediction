@@ -59,8 +59,9 @@ for scaler_type in SCALERS:
         print(underline("Current model : '{}'".format(key)))
         print("Hyperparameters : {}".format(HYPERPARAMETERS[key]))
         model = Pipeline([("scaler", scaler), ("model", MODELS[key])])
+        params = {"model__" + k, HYPERPARAMETERS[key][k] for k in HYPERPARAMETERS[key]}
         clf = GridSearchCV(
-            model, HYPERPARAMETERS[key], cv=5, scoring="balanced_accuracy", n_jobs=-1
+            model, params, cv=5, scoring="balanced_accuracy", n_jobs=-1
         )
         try:
             # Search best estimators
