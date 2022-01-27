@@ -3,6 +3,6 @@
 #
 # Documentation for this file format can be found in "Parameters"
 # Link: https://kedro.readthedocs.io/en/0.17.6/04_kedro_project_setup/02_configuration.html#parameters
-C: 10
+C: 14
 max_iter: 10000
 kernel: "rbf"
